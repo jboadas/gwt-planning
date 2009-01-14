@@ -1,0 +1,4 @@
+#summary Few screenshots of the project.
+
+= Introduction =
+http://talendforge.org/users/smallet/wp-content/uploads/2009/01/planningoverview.png
