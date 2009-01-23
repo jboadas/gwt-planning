@@ -1,0 +1,33 @@
+<module>
+
+      <!-- Inherit the core Web Toolkit stuff.                        -->
+      <inherits name='com.google.gwt.user.User'/>
+	
+	  <!-- Inherit the GWTExt Toolkit library configuration.    -->
+      <inherits name="com.gwtext.GwtExt"/>
+    
+      <!-- Inherit the default GWT style sheet.  You can change       -->
+      <!-- the theme of your GWT application by uncommenting          -->
+      <!-- any one of the following lines.                            -->
+      <inherits name='com.google.gwt.user.theme.standard.Standard'/>
+      <!-- <inherits name='com.google.gwt.user.theme.chrome.Chrome'/> -->
+      <!-- <inherits name='com.google.gwt.user.theme.dark.Dark'/>     -->
+
+      <script src="js/ext/adapter/ext/ext-base.js"/>
+      <script src="js/ext/ext-all.js"/>
+      
+      <script src="js/ext/ext-ux-all-min.js"/>
+      <script src="js/ext/ext-ux-all.js"/>
+
+      <!-- Specify the app entry point class.                         -->
+      <entry-point class='org.gwtplanning.client.GwtPlanning'/>
+    
+      <!-- Specify the application specific style sheet.              -->
+      <stylesheet src='GwtPlanning.css' />
+      
+      <stylesheet src="js/ext/resources/css/ext-all.css"/>
+      <stylesheet src="js/ext/resources/css/xtheme-gray.css"/>
+    
+      <servlet class="org.gwtplanning.server.DataServiceImpl" path="/data"/>
+    
+</module>

@@ -1,0 +1,4 @@
+#!/bin/sh
+APPDIR=`dirname $0`;
+java -cp "$APPDIR/src:$APPDIR/bin:/home/stephane/java/gwt/gwt-linux-1.5.3/gwt-user.jar:/home/stephane/java/gwt/gwt-linux-1.5.3/gwt-dev-linux.jar" com.google.gwt.i18n.tools.I18NSync -out $APPDIR/src org.gwtplanning.client.i18n.PlanningMessages -createMessages ;
+

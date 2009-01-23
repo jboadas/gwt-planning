@@ -1,0 +1,172 @@
+/** Add css rules here for your application. */
+
+
+/** Example rules used by the template application (remove for your app) */
+.pc-template-btn {
+  display: block;
+  font-size: 16pt
+}
+
+#pc-template-img {
+  margin-top: 20px;
+}
+
+.planning-log-error, .planning-log-error-focus, .planning-log-warning, .planning-log-warning-focus, .planning-empty, .planning-log-ok, .planning-log-ok-focus, .planning-jobname, .planning-timeline-odd, .planning-timeline-even {
+	border-style: solid;
+	border-width: 1px;
+	font-size: 14px;
+    /*padding-left: 22px;*/
+    /*min-width: 300px;*/
+    font-family: verdana;
+
+    background-repeat: no-repeat;
+    background-position: 2px 50%;
+    white-space : nowrap;
+}
+
+.planning-params {
+	padding: 5px;
+	background-color: white;
+	/*background-image: url( fond.png ) !important;*/
+}
+
+.planning-wrapper {
+	background-color: white;
+	/*background-image: url( fond.png ) !important;*/
+}
+
+.planning-log-ok {
+	z-index: 1;
+	color: green;
+	border-color: green;
+	background-color: #c7fbad;
+	background-image: url( images/accept.png ) !important;
+}
+
+.planning-log-ok-focus {
+	z-index: 3;
+	color: green;
+	border-color: #c7fbad;
+	background-color: green;
+	background-image: url( images/accept.png ) !important;
+}
+
+.planning-log-warning {
+	z-index: 1;
+	color: black;
+	border-color: #F5D953;
+	background-color: #fbfaad;
+	background-image: url( images/error.png ) !important;
+}
+
+.planning-log-warning-focus {
+	z-index: 3;
+	color: red;
+	border-color: #fbfaad;
+	background-color: #F5D953;
+	background-image: url( images/error.png )!important;
+}
+
+.planning-log-error {
+	z-index: 1;
+	color: red;
+	border-color: red;
+	background-color: #ffbbbb;
+	background-image: url( images/exclamation.png )!important;
+}
+
+.planning-log-error-focus {
+	z-index: 3;
+	color: red;
+	border-color: #ffbbbb;
+	background-color: red;
+	background-image: url( images/exclamation.png ) !important;
+}
+
+.planning-empty {
+	color: white;
+	border-color: white;
+	background-color: white;
+	background-image: url( images/information.png ) !important;
+}
+
+.planning-jobname {
+	padding-left: 5px;
+	border-width: 1px 0px 0px 1px;
+	color: black;
+	border-color: black;
+	background-color: #BBBBBB;
+}
+
+.planning-timeline-odd {
+	padding-left: 5px;
+	/*border-width: 1px 0px 1px 1px;*/
+	border-width: 1px;
+	border-left: 0;
+	border-right: 0;
+	overflow: visible;
+	color: black;
+	border-color: black;
+	background-color: #DDDDDD;
+}
+
+.planning-timeline-even {
+	padding-left: 5px;
+	border-width: 1px;
+	border-left: 0;
+	border-right: 0;
+	color: black;
+	border-color: black;
+	background-color: #EEEEEE;
+}
+
+.planning-global-border {
+	z-index: 0;
+	border-color: black;
+	border-style: solid;
+	border-width: 2px;
+	/*z-index: 1;*/
+    white-space : nowrap;
+}
+
+.planning-job-border {
+	border-style: solid;
+	border-width: 1px 0px 0px 0px;
+	/*z-index: 1;*/
+    white-space : nowrap;
+	border-color: black;
+}
+
+.planning-float {
+	border-color: black;
+	border-style: dashed;
+	border-width: 0px 2px 0px 2px;
+	z-index: 2;
+    white-space : nowrap;
+	opacity: 0.3;
+	background: #A4E800;
+}
+
+.planning-date-title {
+	z-index: 1;
+	overflow: hidden;
+	color: black;
+	padding-left: 5px;
+	padding-top: 3px;
+}
+
+.planning-now {
+	border-color: red;
+	border-style: double;
+	border-width: 0px 3px 0px 0px;
+	z-index: 2;
+}
+
+.planning-past {
+	opacity: 0.3;
+    background: #666666;
+    background-image: url( images/pastBack.png ) !important;
+    background-repeat: repeat-y;
+    background-position: right;
+}
+
