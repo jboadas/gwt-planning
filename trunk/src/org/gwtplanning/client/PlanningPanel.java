@@ -26,11 +26,11 @@ import com.gwtext.client.widgets.event.WindowListenerAdapter;
  */
 public class PlanningPanel extends SimplePanel {
 
-    private static final int DIV_EXEC_MIN_WIDTH = 22;
+    private static final int EVENT_DIV_MIN_WIDTH = 22;
 
-    private static final int JOBS_PANEL_WIDTH = 150;
+    private static final int EVENT_DIV_HEIGHT = 20;
 
-    private static final int EXEC_DIV_HEIGHT = 20;
+    private static final int CATEGORY_DIV_WIDTH = 150;
 
     private static final int ABSOLUTE_PANEL_WIDTH = 800;
 
@@ -38,11 +38,11 @@ public class PlanningPanel extends SimplePanel {
     // Assumes that jobName panels and exec panels have the same value (for height, width)
     private static final int PANELS_BORDER_PADDING = 2;
 
-    private static final int JOB_PANELS_BORDER_PADDING = 6;
+    private static final int CATEGORY_DIV_BORDER_PADDING = 6;
 
     private static final int DATE_PANELS_BORDER_PADDING = 5;
 
-    private static final int EXEC_FLOAT_PANEL_BORDER_PADDING = 4;
+    private static final int EVENT_FLOAT_PANEL_BORDER_PADDING = 4;
 
     private static final String GLOBAL_PATTERN = "dd/MM/yyyy H:mm";
 
@@ -146,14 +146,14 @@ public class PlanningPanel extends SimplePanel {
         int nbPeriods = evalNbPeriods(startDate, endDate, scaleMode);
         AbsolutePanel absolutePanel = new AbsolutePanel();
         absolutePanel.setStylePrimaryName("planning-wrapper");
-        absolutePanel.setHeight(((data.length + 1) * EXEC_DIV_HEIGHT + 2) + "px");
+        absolutePanel.setHeight(((data.length + 1) * EVENT_DIV_HEIGHT + 2) + "px");
 
-        dataPanelsHeight = EXEC_DIV_HEIGHT * (data.length + 1) - PANELS_BORDER_PADDING;
+        dataPanelsHeight = EVENT_DIV_HEIGHT * (data.length + 1) - PANELS_BORDER_PADDING;
 
         // Date panels:
-        onePeriodColumnWidth = (ABSOLUTE_PANEL_WIDTH - JOBS_PANEL_WIDTH) / nbPeriods;
+        onePeriodColumnWidth = (ABSOLUTE_PANEL_WIDTH - CATEGORY_DIV_WIDTH) / nbPeriods;
         for (int i = 0; i < nbPeriods; i++) {
-            int xPosition = JOBS_PANEL_WIDTH + onePeriodColumnWidth * i;
+            int xPosition = CATEGORY_DIV_WIDTH + onePeriodColumnWidth * i;
             int yPosition = 0;
 
             String style = (i % 2 == 0 ? "planning-timeline-odd" : "planning-timeline-even");
@@ -180,30 +180,30 @@ public class PlanningPanel extends SimplePanel {
         Widget past = new SimplePanel();
         past.setPixelSize(padding, dataPanelsHeight);
         past.setStylePrimaryName("planning-past");
-        absolutePanel.add(past, JOBS_PANEL_WIDTH + 1, 2);
+        absolutePanel.add(past, CATEGORY_DIV_WIDTH + 1, 2);
 
         // Add 'now' marker:
         Widget now = new SimplePanel();
         now.setPixelSize(1, dataPanelsHeight);
         now.setStylePrimaryName("planning-now");
-        absolutePanel.add(now, JOBS_PANEL_WIDTH + padding, 2);
+        absolutePanel.add(now, CATEGORY_DIV_WIDTH + padding, 2);
 
         // Job label panels:
         int j = 1;
         for (Category category : data) {
-            Widget addJob = addJob(category);
+            Widget addJob = addCategory(category);
 
-            addJob.setPixelSize(JOBS_PANEL_WIDTH - JOB_PANELS_BORDER_PADDING, EXEC_DIV_HEIGHT - PANELS_BORDER_PADDING + 1);
-            absolutePanel.add(addJob, 0, EXEC_DIV_HEIGHT * j);
+            addJob.setPixelSize(CATEGORY_DIV_WIDTH - CATEGORY_DIV_BORDER_PADDING, EVENT_DIV_HEIGHT - PANELS_BORDER_PADDING + 1);
+            absolutePanel.add(addJob, 0, EVENT_DIV_HEIGHT * j);
 
             Widget jobHorizontalLines = new SimplePanel();
-            jobHorizontalLines.setPixelSize(ABSOLUTE_PANEL_WIDTH, EXEC_DIV_HEIGHT - PANELS_BORDER_PADDING);
+            jobHorizontalLines.setPixelSize(ABSOLUTE_PANEL_WIDTH, EVENT_DIV_HEIGHT - PANELS_BORDER_PADDING);
             jobHorizontalLines.setStylePrimaryName("planning-job-border");
-            absolutePanel.add(jobHorizontalLines, 0, EXEC_DIV_HEIGHT * j);
+            absolutePanel.add(jobHorizontalLines, 0, EVENT_DIV_HEIGHT * j);
 
             for (Event execBean : category.getEvents()) {
                 if (execBean.getStart() != null && execBean.getEnd() != null) {
-                    addJobExec(absolutePanel, execBean, JOBS_PANEL_WIDTH, EXEC_DIV_HEIGHT * j);
+                    addEvent(absolutePanel, execBean, CATEGORY_DIV_WIDTH, EVENT_DIV_HEIGHT * j);
                 }
             }
 
@@ -212,14 +212,14 @@ public class PlanningPanel extends SimplePanel {
 
         // Add global border:
         Widget borders = new SimplePanel();
-        borders.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 2, dataPanelsHeight - EXEC_DIV_HEIGHT + 1);
+        borders.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 2, dataPanelsHeight - EVENT_DIV_HEIGHT + 1);
         borders.setStylePrimaryName("planning-global-border");
-        absolutePanel.add(borders, 0, EXEC_DIV_HEIGHT - 1);
+        absolutePanel.add(borders, 0, EVENT_DIV_HEIGHT - 1);
 
         Widget borders2 = new SimplePanel();
-        borders2.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 1 - JOBS_PANEL_WIDTH, dataPanelsHeight);
+        borders2.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 1 - CATEGORY_DIV_WIDTH, dataPanelsHeight);
         borders2.setStylePrimaryName("planning-global-border");
-        absolutePanel.add(borders2, JOBS_PANEL_WIDTH - 1, 0);
+        absolutePanel.add(borders2, CATEGORY_DIV_WIDTH - 1, 0);
 
         // Layout:
         mainPanel = absolutePanel;
@@ -254,7 +254,7 @@ public class PlanningPanel extends SimplePanel {
         Label labelWidget = new Label(label);
         labelWidget.setStylePrimaryName("planning-date-title");
         labelWidget.setWidth(onePeriodColumnWidth + "px");
-        labelWidget.setHeight(EXEC_DIV_HEIGHT - 4 + "px");
+        labelWidget.setHeight(EVENT_DIV_HEIGHT - 4 + "px");
         labelWidget.setWordWrap(false);
         absolutePanel.add(labelWidget, xPosition, yPosition);
 
@@ -291,30 +291,29 @@ public class PlanningPanel extends SimplePanel {
         return new Long(millis * onePeriodColumnWidth / scaleMode.getPeriodInMillis()).intValue();
     }
 
-    private void addJobExec(final AbsolutePanel absolutePanel, final Event event, final int x, final int y) {
+    private void addEvent(final AbsolutePanel absolutePanel, final Event event, final int x, final int y) {
         long diff = event.getStart().getTime() - startDate.getTime();
         final int padding = evaluateWidth(diff);
 
         long ellapsed = event.getEnd().getTime() - event.getStart().getTime();
         int width = evaluateWidth(ellapsed);
 
-        if (width < DIV_EXEC_MIN_WIDTH) {
-            width = DIV_EXEC_MIN_WIDTH;
+        if (width < EVENT_DIV_MIN_WIDTH) {
+            width = EVENT_DIV_MIN_WIDTH;
         }
 
-        final SimplePanel execPanel = new ExecPanel(event, width);
+        final SimplePanel execPanel = new EventPanel(event, width);
 
         Label w = new Label();
         execPanel.add(w);
 
         absolutePanel.add(execPanel, x + padding, y + 1);
-
     }
 
     /**
      * DOC smallet
      */
-    private class ExecPanel extends SimplePanel {
+    private class EventPanel extends SimplePanel {
 
         Window window;
 
@@ -324,7 +323,7 @@ public class PlanningPanel extends SimplePanel {
 
         Event event;
 
-        public ExecPanel(Event event, int width) {
+        public EventPanel(Event event, int width) {
             super();
             this.event = event;
 
@@ -333,7 +332,7 @@ public class PlanningPanel extends SimplePanel {
             this.sinkEvents(com.google.gwt.user.client.Event.ONMOUSEOVER + com.google.gwt.user.client.Event.ONMOUSEOUT
                     + com.google.gwt.user.client.Event.ONCLICK);
             this.setWidth(width - PANELS_BORDER_PADDING + "px");
-            this.setHeight(EXEC_DIV_HEIGHT - PANELS_BORDER_PADDING - 1 + "px");
+            this.setHeight(EVENT_DIV_HEIGHT - PANELS_BORDER_PADDING - 1 + "px");
         }
 
         @Override
@@ -348,7 +347,7 @@ public class PlanningPanel extends SimplePanel {
 
                         @Override
                         public boolean doBeforeClose(Panel panel) {
-                            closeDetailsPopup(windowWrapper, ExecPanel.this, event);
+                            closeDetailsPopup(windowWrapper, EventPanel.this, event);
                             fixed.value = false;
                             return false;
                         }
@@ -380,10 +379,10 @@ public class PlanningPanel extends SimplePanel {
                 borders = new SimplePanel();
                 borders.setStylePrimaryName("planning-float");
 
-                borders.setWidth(this.getOffsetWidth() - EXEC_FLOAT_PANEL_BORDER_PADDING + "px");
-                borders.setHeight(dataPanelsHeight - EXEC_DIV_HEIGHT + 1 + "px");
+                borders.setWidth(this.getOffsetWidth() - EVENT_FLOAT_PANEL_BORDER_PADDING + "px");
+                borders.setHeight(dataPanelsHeight - EVENT_DIV_HEIGHT + 1 + "px");
                 borders.setVisible(false);
-                ((AbsolutePanel) getParent()).add(borders, this.getAbsoluteLeft(), 0 + EXEC_DIV_HEIGHT + 1);
+                ((AbsolutePanel) getParent()).add(borders, this.getAbsoluteLeft(), 0 + EVENT_DIV_HEIGHT + 1);
             }
 
             borders.setVisible(true);
@@ -399,12 +398,12 @@ public class PlanningPanel extends SimplePanel {
         }
     }
 
-    private Widget addJob(Category jobBean) {
-        com.google.gwt.user.client.ui.Panel jobNamePanel = new SimplePanel();
-        jobNamePanel.setStylePrimaryName("planning-jobName");
-        jobNamePanel.add(new Label(jobBean.toString()));
+    private Widget addCategory(Category category) {
+        com.google.gwt.user.client.ui.Panel categoryNamePanel = new SimplePanel();
+        categoryNamePanel.setStylePrimaryName("planning-jobName");
+        categoryNamePanel.add(new Label(category.toString()));
 
-        return jobNamePanel;
+        return categoryNamePanel;
     }
 
     /**
