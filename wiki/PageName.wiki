@@ -1,5 +1,0 @@
-#summary One-Developper guide
-= Using Eclipse =
-Check out trunk and import the folder as an eclipse project
-= Another IDE =
-Check out trunk/src
