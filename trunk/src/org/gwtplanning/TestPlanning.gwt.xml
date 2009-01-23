@@ -1,0 +1,9 @@
+<module>
+
+      <!-- Inherit the core Web Toolkit stuff.                        -->
+      <inherits name='org.gwtplanning.GwtPlanning'/>
+	
+      <!-- Specify the app entry point class.                         -->
+      <entry-point class='org.gwtplanning.client.TestPlanning'/>
+	
+</module>
