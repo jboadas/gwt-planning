@@ -107,7 +107,7 @@
 	overflow: visible;
 	color: black;
 	border-color: black;
-	background-color: #DDDDDD;
+	background-color: #B9BBFF;
 }
 
 .planning-timeline-even {
@@ -117,7 +117,7 @@
 	border-right: 0;
 	color: black;
 	border-color: black;
-	background-color: #EEEEEE;
+	background-color: #7F82FF;
 }
 
 .planning-global-border {
@@ -163,7 +163,7 @@
 }
 
 .planning-past {
-	opacity: 0.3;
+	opacity: 0.5;
     background: #666666;
     background-image: url( images/pastBack.png ) !important;
     background-repeat: repeat-y;
