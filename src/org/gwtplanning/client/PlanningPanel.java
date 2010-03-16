@@ -30,7 +30,9 @@ public class PlanningPanel extends SimplePanel {
 
     private static final int EVENT_DIV_HEIGHT = 20;
 
-    private static final int CATEGORY_DIV_WIDTH = 150;
+    private static final int DEFAULT_CATEGORY_DIV_WIDTH = 100;
+
+    private int currentCategoryDivWidth;
 
     private static final int ABSOLUTE_PANEL_WIDTH = 800;
 
@@ -143,6 +145,8 @@ public class PlanningPanel extends SimplePanel {
     }
 
     private void draw(Category[] data) {
+        currentCategoryDivWidth = evaluateCategoryDivWidth(data);
+
         int nbPeriods = evalNbPeriods(startDate, endDate, scaleMode);
         AbsolutePanel absolutePanel = new AbsolutePanel();
         absolutePanel.setStylePrimaryName("planning-wrapper");
@@ -151,9 +155,9 @@ public class PlanningPanel extends SimplePanel {
         dataPanelsHeight = EVENT_DIV_HEIGHT * (data.length + 1) - PANELS_BORDER_PADDING;
 
         // Date panels:
-        onePeriodColumnWidth = (ABSOLUTE_PANEL_WIDTH - CATEGORY_DIV_WIDTH) / nbPeriods;
+        onePeriodColumnWidth = (ABSOLUTE_PANEL_WIDTH - currentCategoryDivWidth) / nbPeriods;
         for (int i = 0; i < nbPeriods; i++) {
-            int xPosition = CATEGORY_DIV_WIDTH + onePeriodColumnWidth * i;
+            int xPosition = currentCategoryDivWidth + onePeriodColumnWidth * i;
             int yPosition = 0;
 
             String style = (i % 2 == 0 ? "planning-timeline-odd" : "planning-timeline-even");
@@ -180,20 +184,21 @@ public class PlanningPanel extends SimplePanel {
         Widget past = new SimplePanel();
         past.setPixelSize(padding, dataPanelsHeight);
         past.setStylePrimaryName("planning-past");
-        absolutePanel.add(past, CATEGORY_DIV_WIDTH + 1, 2);
+        absolutePanel.add(past, currentCategoryDivWidth + 1, 2);
 
         // Add 'now' marker:
         Widget now = new SimplePanel();
         now.setPixelSize(1, dataPanelsHeight);
         now.setStylePrimaryName("planning-now");
-        absolutePanel.add(now, CATEGORY_DIV_WIDTH + padding, 2);
+        absolutePanel.add(now, currentCategoryDivWidth + padding, 2);
 
         // Job label panels:
         int j = 1;
         for (Category category : data) {
             Widget addJob = addCategory(category);
 
-            addJob.setPixelSize(CATEGORY_DIV_WIDTH - CATEGORY_DIV_BORDER_PADDING, EVENT_DIV_HEIGHT - PANELS_BORDER_PADDING + 1);
+            addJob.setPixelSize(currentCategoryDivWidth - CATEGORY_DIV_BORDER_PADDING, EVENT_DIV_HEIGHT - PANELS_BORDER_PADDING
+                    + 1);
             absolutePanel.add(addJob, 0, EVENT_DIV_HEIGHT * j);
 
             Widget jobHorizontalLines = new SimplePanel();
@@ -203,7 +208,7 @@ public class PlanningPanel extends SimplePanel {
 
             for (Event execBean : category.getEvents()) {
                 if (execBean.getStart() != null && execBean.getEnd() != null) {
-                    addEvent(absolutePanel, execBean, CATEGORY_DIV_WIDTH, EVENT_DIV_HEIGHT * j);
+                    addEvent(absolutePanel, execBean, currentCategoryDivWidth, EVENT_DIV_HEIGHT * j);
                 }
             }
 
@@ -217,9 +222,9 @@ public class PlanningPanel extends SimplePanel {
         absolutePanel.add(borders, 0, EVENT_DIV_HEIGHT - 1);
 
         Widget borders2 = new SimplePanel();
-        borders2.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 1 - CATEGORY_DIV_WIDTH, dataPanelsHeight);
+        borders2.setPixelSize(ABSOLUTE_PANEL_WIDTH - 2 - 1 - currentCategoryDivWidth, dataPanelsHeight);
         borders2.setStylePrimaryName("planning-global-border");
-        absolutePanel.add(borders2, CATEGORY_DIV_WIDTH - 1, 0);
+        absolutePanel.add(borders2, currentCategoryDivWidth - 1, 0);
 
         // Layout:
         mainPanel = absolutePanel;
@@ -229,6 +234,16 @@ public class PlanningPanel extends SimplePanel {
         scrollPanel.add(mainPanel);
 
         this.add(scrollPanel);
+    }
+
+    private int evaluateCategoryDivWidth(Category[] data) {
+        int max = DEFAULT_CATEGORY_DIV_WIDTH;
+        for (Category category : data) {
+            int offsetWidth = category.toString().length() * 9;
+            if (offsetWidth > max)
+                max = offsetWidth;
+        }
+        return max;
     }
 
     /**
