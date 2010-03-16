@@ -2,7 +2,7 @@ package org.gwtplanning.client.i18n;
 
 /**
  * Interface to represent the messages contained in resource bundle:
- * 	/home/stephane/java/mywork/GwtPlanning/src/org/gwtplanning/client/i18n/PlanningMessages.properties'.
+ * 	/home/stephane/java/mywork/gwt-planning/src/org/gwtplanning/client/i18n/PlanningMessages.properties'.
  */
 public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   
@@ -14,6 +14,15 @@ public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Day")
   @Key("DAY")
   String DAY();
+
+  /**
+   * Translated "5 min".
+   * 
+   * @return translated "5 min"
+   */
+  @DefaultMessage("5 min")
+  @Key("FIVE")
+  String FIVE();
 
   /**
    * Translated "4 hours".
@@ -41,6 +50,15 @@ public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("Hour")
   @Key("HOUR")
   String HOUR();
+
+  /**
+   * Translated "20 min".
+   * 
+   * @return translated "20 min"
+   */
+  @DefaultMessage("20 min")
+  @Key("TWENTY")
+  String TWENTY();
 
   /**
    * Translated "Elapsed time: {0} min".
