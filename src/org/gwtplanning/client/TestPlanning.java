@@ -4,8 +4,9 @@ import org.gwtplanning.client.PlanningParameters.ParamChangeListener;
 import org.gwtplanning.client.model.data.RandomPlanningDataProvider;
 
 import com.google.gwt.core.client.EntryPoint;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
-import com.gwtext.client.widgets.Panel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -33,7 +34,7 @@ public class TestPlanning implements EntryPoint {
             }
         });
 
-        Panel toReturn = new Panel();
+        Panel toReturn = new VerticalPanel();
 
         toReturn.add(paramsPanel);
         toReturn.add(planningPanel);
