@@ -397,7 +397,8 @@ public class PlanningPanel extends SimplePanel {
                 borders.setWidth(this.getOffsetWidth() - EVENT_FLOAT_PANEL_BORDER_PADDING + "px");
                 borders.setHeight(dataPanelsHeight - EVENT_DIV_HEIGHT + 1 + "px");
                 borders.setVisible(false);
-                ((AbsolutePanel) getParent()).add(borders, this.getAbsoluteLeft(), 0 + EVENT_DIV_HEIGHT + 1);
+                int leftPosition = EventPanel.this.getAbsoluteLeft() - EventPanel.this.getParent().getAbsoluteLeft();
+                ((AbsolutePanel) getParent()).add(borders, leftPosition, 0 + EVENT_DIV_HEIGHT + 1);
             }
 
             borders.setVisible(true);
