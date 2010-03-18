@@ -416,7 +416,7 @@ public class PlanningPanel extends SimplePanel {
 
     private Widget addCategory(Category category) {
         com.google.gwt.user.client.ui.Panel categoryNamePanel = new SimplePanel();
-        categoryNamePanel.setStylePrimaryName("planning-jobName");
+        categoryNamePanel.setStylePrimaryName("planning-jobname");
         categoryNamePanel.add(new Label(category.toString()));
 
         return categoryNamePanel;
