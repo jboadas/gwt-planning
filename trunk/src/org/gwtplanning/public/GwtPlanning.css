@@ -95,7 +95,7 @@
 	border-width: 1px 0px 0px 1px;
 	color: black;
 	border-color: black;
-	background-color: #BBBBBB;
+	background-color: #E5ECF9;
 }
 
 .planning-timeline-odd {
@@ -107,7 +107,7 @@
 	overflow: visible;
 	color: black;
 	border-color: black;
-	background-color: #B9BBFF;
+	background-color: white;
 }
 
 .planning-timeline-even {
@@ -117,7 +117,7 @@
 	border-right: 0;
 	color: black;
 	border-color: black;
-	background-color: #7F82FF;
+	background-color: #E5ECF9;
 }
 
 .planning-global-border {
@@ -164,7 +164,7 @@
 
 .planning-past {
 	opacity: 0.5;
-    background: #666666;
+    background: #888888;
     background-image: url( images/pastBack.png ) !important;
     background-repeat: repeat-y;
     background-position: right;
