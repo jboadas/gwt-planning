@@ -164,9 +164,6 @@
 
 .planning-past {
 	opacity: 0.5;
-    background: #888888;
-    background-image: url( images/pastBack.png ) !important;
-    background-repeat: repeat-y;
-    background-position: right;
+    background: #999999;
 }
 
