@@ -12,10 +12,13 @@ import org.gwtplanning.client.model.data.PlanningDataProviderMode;
 import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
+import com.google.gwt.user.client.ui.HTML;
 import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.MouseListenerAdapter;
+import com.google.gwt.user.client.ui.PopupPanel;
 import com.google.gwt.user.client.ui.ScrollPanel;
 import com.google.gwt.user.client.ui.SimplePanel;
+import com.google.gwt.user.client.ui.VerticalPanel;
 import com.google.gwt.user.client.ui.Widget;
 import com.gwtext.client.widgets.Panel;
 import com.gwtext.client.widgets.Window;
@@ -160,11 +163,14 @@ public class PlanningPanel extends SimplePanel {
             int xPosition = currentCategoryDivWidth + onePeriodColumnWidth * i;
             int yPosition = 0;
 
-            String style = (i % 2 == 0 ? "planning-timeline-odd" : "planning-timeline-even");
-
+            // Date title:
             Date panelStartdate = new Date(startDate.getTime() + i * scaleMode.getPeriodInMillis());
 
-            Widget datePanel = addDatePanel(absolutePanel, style, xPosition, yPosition, panelStartdate);
+            Widget dateTitle = getDateTitle(panelStartdate);
+            absolutePanel.add(dateTitle, xPosition, yPosition);
+
+            // Date panel:
+            Widget datePanel = getDatePanel(i % 2 == 0);
 
             datePanel.setHeight(dataPanelsHeight + 1 + "px");
 
@@ -259,46 +265,46 @@ public class PlanningPanel extends SimplePanel {
         return nbPeriods;
     }
 
-    private Widget addDatePanel(AbsolutePanel absolutePanel, String style, final int xPosition, final int yPosition,
-            Date startDate) {
+    private Widget getDateTitle(Date startDate) {
         String label = scaleMode.getDateFormat().format(startDate);
-        Date endDate = new Date(startDate.getTime() + scaleMode.getPeriodInMillis());
-
-        com.google.gwt.user.client.ui.Panel date = new SimplePanel();
-
-        Label labelWidget = new Label(label);
+        final Label labelWidget = new Label(label);
         labelWidget.setStylePrimaryName("planning-date-title");
         labelWidget.setWidth(onePeriodColumnWidth + "px");
         labelWidget.setHeight(EVENT_DIV_HEIGHT - 4 + "px");
         labelWidget.setWordWrap(false);
-        absolutePanel.add(labelWidget, xPosition, yPosition);
 
-        date.setStylePrimaryName(style);
+        Date endDate = new Date(startDate.getTime() + scaleMode.getPeriodInMillis());
 
-        final Window window = new Window();
-        window.setTitle("Period " + label);
-        window.setWidth(180);
-        window.setHeight(60);
-        window.setPlain(true);
-        window.setClosable(false);
-        window.add(new Label("From " + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(startDate)));
-        window.add(new Label("To " + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(endDate)));
+        final PopupPanel popuppanel = new PopupPanel();
+        popuppanel.addStyleName("date-range-popup");
+        com.google.gwt.user.client.ui.Panel popupContent = new VerticalPanel();
+        popupContent.add(new HTML("<b>Period " + label + "</b><br/><br/>" + "From: <i>"
+                + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(startDate) + "</i><br/>" + "To: <i>"
+                + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(endDate) + "</i>"));
+        popuppanel.setWidget(popupContent);
 
         labelWidget.addMouseListener(new MouseListenerAdapter() {
 
             @Override
             public void onMouseEnter(Widget sender) {
-                window.setPosition(mainPanel.getAbsoluteLeft() + xPosition, mainPanel.getAbsoluteTop() + yPosition + 24);
-                window.show();
+                popuppanel.setPopupPosition(labelWidget.getAbsoluteLeft(), labelWidget.getAbsoluteTop() + 24);
+                popuppanel.show();
             }
 
             @Override
             public void onMouseLeave(Widget sender) {
-                window.hide();
+                popuppanel.hide();
             }
 
         });
 
+        return labelWidget;
+    }
+
+    private Widget getDatePanel(boolean odd) {
+        String style = (odd ? "planning-timeline-odd" : "planning-timeline-even");
+        com.google.gwt.user.client.ui.Panel date = new SimplePanel();
+        date.setStylePrimaryName(style);
         return date;
     }
 
