@@ -61,6 +61,24 @@ public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   String TWENTY();
 
   /**
+   * Translated "Error".
+   * 
+   * @return translated "Error"
+   */
+  @DefaultMessage("Error")
+  @Key("error")
+  String error();
+
+  /**
+   * Translated "End date cannot be before start date".
+   * 
+   * @return translated "End date cannot be before start date"
+   */
+  @DefaultMessage("End date cannot be before start date")
+  @Key("error.endBeforeStart")
+  String error_endBeforeStart();
+
+  /**
    * Translated "Elapsed time: {0} min".
    * 
    * @return translated "Elapsed time: {0} min"
@@ -95,15 +113,6 @@ public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   @DefaultMessage("End date")
   @Key("parameters.endDate")
   String parameters_endDate();
-
-  /**
-   * Translated "Scale".
-   * 
-   * @return translated "Scale"
-   */
-  @DefaultMessage("Scale")
-  @Key("parameters.scale")
-  String parameters_scale();
 
   /**
    * Translated "Start date".
