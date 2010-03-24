@@ -53,4 +53,13 @@ public enum ScaleMode {
 
         return null;
     }
+
+    public static ScaleMode get(long period) {
+        for (ScaleMode current : values()) {
+            if (current.periodInMillis <= period / 4)
+                return current;
+        }
+
+        return null;
+    }
 }
