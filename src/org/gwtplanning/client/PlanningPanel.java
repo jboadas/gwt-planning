@@ -191,19 +191,22 @@ public class PlanningPanel extends SimplePanel {
             absolutePanel.add(datePanel, xPosition, yPosition);
         }
 
-        // Add 'past' layer:
-        long diff = new Date().getTime() - startDate.getTime();
-        final int padding = evaluateWidth(diff);
-        Widget past = new SimplePanel();
-        past.setPixelSize(padding, dataPanelsHeight);
-        past.setStylePrimaryName("planning-past");
-        absolutePanel.add(past, currentCategoryDivWidth + 1, 2);
+        final Date now = new Date();
+        if (now.after(startDate) && now.before(endDate)) {
+            // Add 'past' layer:
+            long diff = now.getTime() - startDate.getTime();
+            final int nowX = evaluateWidth(diff);
+            Widget pastPanel = new SimplePanel();
+            pastPanel.setPixelSize(nowX, dataPanelsHeight);
+            pastPanel.setStylePrimaryName("planning-past");
+            absolutePanel.add(pastPanel, currentCategoryDivWidth + 1, 2);
 
-        // Add 'now' marker:
-        Widget now = new SimplePanel();
-        now.setPixelSize(1, dataPanelsHeight);
-        now.setStylePrimaryName("planning-now");
-        absolutePanel.add(now, currentCategoryDivWidth + padding, 2);
+            // Add 'now' marker:
+            Widget nowPanel = new SimplePanel();
+            nowPanel.setPixelSize(1, dataPanelsHeight);
+            nowPanel.setStylePrimaryName("planning-now");
+            absolutePanel.add(nowPanel, currentCategoryDivWidth + nowX, 2);
+        }
 
         // Job label panels:
         int j = 1;
