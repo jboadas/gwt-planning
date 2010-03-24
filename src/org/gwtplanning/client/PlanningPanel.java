@@ -2,13 +2,16 @@ package org.gwtplanning.client;
 
 import java.util.Date;
 
+import org.gwtplanning.client.i18n.PlanningMessages;
 import org.gwtplanning.client.model.Category;
 import org.gwtplanning.client.model.Event;
 import org.gwtplanning.client.model.ScaleMode;
 import org.gwtplanning.client.model.data.AsyncPlanningDataProvider;
 import org.gwtplanning.client.model.data.LocalPlanningDataProvider;
 import org.gwtplanning.client.model.data.PlanningDataProviderMode;
+import org.gwtplanning.client.widgets.MyMessageBox;
 
+import com.google.gwt.core.client.GWT;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -27,6 +30,8 @@ import com.gwtext.client.widgets.event.WindowListenerAdapter;
  * DOC stephane class global comment. Detailled comment
  */
 public class PlanningPanel extends SimplePanel {
+
+    private static PlanningMessages messages = (PlanningMessages) GWT.create(PlanningMessages.class);
 
     private static final int EVENT_DIV_MIN_WIDTH = 22;
 
@@ -145,6 +150,11 @@ public class PlanningPanel extends SimplePanel {
     }
 
     private void draw(Category[] data) {
+        if (endDate.before(startDate)) {
+            MyMessageBox.error(messages.error(), messages.error_endBeforeStart());
+            return;
+        }
+
         currentCategoryDivWidth = evaluateCategoryDivWidth(data);
 
         int nbPeriods = evalNbPeriods(startDate, endDate, scaleMode);
