@@ -9,7 +9,6 @@ import org.gwtplanning.client.model.data.AsyncPlanningDataProvider;
 import org.gwtplanning.client.model.data.LocalPlanningDataProvider;
 import org.gwtplanning.client.model.data.PlanningDataProviderMode;
 
-import com.google.gwt.i18n.client.DateTimeFormat;
 import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.AbsolutePanel;
 import com.google.gwt.user.client.ui.HTML;
@@ -48,8 +47,6 @@ public class PlanningPanel extends SimplePanel {
     private static final int DATE_PANELS_BORDER_PADDING = 5;
 
     private static final int EVENT_FLOAT_PANEL_BORDER_PADDING = 4;
-
-    private static final String GLOBAL_PATTERN = "dd/MM/yyyy H:mm";
 
     private int dataPanelsHeight;
 
@@ -278,9 +275,8 @@ public class PlanningPanel extends SimplePanel {
         final PopupPanel popuppanel = new PopupPanel();
         popuppanel.addStyleName("date-range-popup");
         com.google.gwt.user.client.ui.Panel popupContent = new VerticalPanel();
-        popupContent.add(new HTML("<b>Period " + label + "</b><br/><br/>" + "From: <i>"
-                + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(startDate) + "</i><br/>" + "To: <i>"
-                + DateTimeFormat.getFormat(GLOBAL_PATTERN).format(endDate) + "</i>"));
+        popupContent.add(new HTML("<b>Period " + label + "</b><br/><br/>" + "From: <i>" + Constants.DATE_FORMAT.format(startDate)
+                + "</i><br/>" + "To: <i>" + Constants.DATE_FORMAT.format(endDate) + "</i>"));
         popuppanel.setWidget(popupContent);
 
         labelWidget.addMouseListener(new MouseListenerAdapter() {
