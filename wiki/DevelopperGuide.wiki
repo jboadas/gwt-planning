@@ -31,3 +31,5 @@
         RootPanel.get().add(toReturn);
     }
 }}}
+
+Now you can replace RandomPlanningDataProvider(5) by RemotePlanningDataProvider to get data from a RPC call in classic GWT way.
