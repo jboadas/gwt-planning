@@ -1,5 +1,33 @@
-#summary One-Developper guide
-= Using Eclipse =
-Check out trunk and import the folder as an eclipse project
-= Another IDE =
-Check out trunk/src
+=Getting started=
+
+ # Download the gwtplanning-XX.jar
+ # Add it in the classpath of your project
+ # Modify YourApplication.gwt.xml to include these lines:
+{{{
+<inherits name="org.gwtplanning.GwtPlanning"/>
+}}}
+ # Here is an example of module that use the planning:
+{{{
+    public void onModuleLoad() {
+        final PlanningParameters paramsPanel = new PlanningParameters();
+
+        final PlanningPanel planningPanel = new PlanningPanel(new RandomPlanningDataProvider(5), paramsPanel.getStartDate(),
+                paramsPanel.getEndDate(), paramsPanel.getScaleMode());
+
+        planningPanel.draw();
+
+        paramsPanel.addChangeListener(new ParamChangeListener() {
+
+            public void onChange() {
+                planningPanel.setStartDate(paramsPanel.getStartDate());
+                planningPanel.setEndDate(paramsPanel.getEndDate());
+                planningPanel.setScaleMode(paramsPanel.getScaleMode());
+                planningPanel.draw();
+            }
+        });
+
+        Panel toReturn = new VerticalPanel();
+
+        RootPanel.get().add(toReturn);
+    }
+}}}
