@@ -52,6 +52,15 @@ public interface PlanningMessages extends com.google.gwt.i18n.client.Messages {
   String HOUR();
 
   /**
+   * Translated "1 min".
+   * 
+   * @return translated "1 min"
+   */
+  @DefaultMessage("1 min")
+  @Key("ONE")
+  String ONE();
+
+  /**
    * Translated "20 min".
    * 
    * @return translated "20 min"
