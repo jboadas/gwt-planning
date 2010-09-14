@@ -14,7 +14,8 @@ public enum ScaleMode {
     FOUR_HOUR(4 * 60 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).FOUR_HOUR()),
     HOUR(1 * 60 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).HOUR()),
     TWENTY(20 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).TWENTY()),
-    FIVE(5 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).FIVE());
+    FIVE(5 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).FIVE()),
+    ONE(1 * 60 * 1000, "H:mm", ((PlanningMessages) GWT.create(PlanningMessages.class)).ONE());
 
     private long periodInMillis;
 
